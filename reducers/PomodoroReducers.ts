@@ -1,8 +1,8 @@
 // import { combineReducers } from 'redux'
-import { PomodoroEvent } from '../actions/PomodoroSaga'
-import { PomodoroTimerState } from '../data/PomodoroModels'
+import { PomodoroEvent } from '../actions/PomodoroSaga';
+import { initialPomodoroTimerState, PomodoroTimerState } from '../data/PomodoroModels';
 
-export function pomodoroReducers(state:PomodoroTimerState, action: PomodoroEvent): PomodoroTimerState {
+export function pomodoroReducers(state:PomodoroTimerState = initialPomodoroTimerState, action: PomodoroEvent): PomodoroTimerState {
   switch(action.type) {
     case "POMODORO_TIMER_STARTED":
       return {

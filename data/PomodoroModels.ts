@@ -8,6 +8,15 @@ export type PomodoroIdb = {} & {
     version: number
 }
 
+export const emptyPomodoro = {
+  actual: "",
+  id: 0,
+  planned: "",
+  startTime: 0,
+  userId: "",
+  version: 0
+}
+
 export const createPomodoro = (
         userId:string, 
         planned:string, 
