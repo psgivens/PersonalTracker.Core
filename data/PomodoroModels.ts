@@ -6,13 +6,15 @@ export type PomodoroIdb = {} & {
     actual: string
     startTime: number
     version: number
+    status: "Not started" | "Running" | "Interupted" | "Finished"
 }
 
-export const emptyPomodoro = {
+export const emptyPomodoro: PomodoroIdb = {
   actual: "",
   id: 0,
   planned: "",
   startTime: 0,
+  status: "Not started",
   userId: "",
   version: 0
 }
@@ -26,6 +28,7 @@ export const createPomodoro = (
     id: Math.floor(Math.random() * 1000000000),
     planned,
     startTime,
+    status: "Not started",
     userId,
     version: 0
 })

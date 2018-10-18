@@ -1,15 +1,13 @@
 
-import * as React from 'react';
-import * as container from 'src/jscommon/components/CrudlContainer';
-// import { connect } from 'react-redux';
-import { connectContainer } from 'src/jscommon/components/CrudlContainer';
-import Button from 'src/jscommon/controls/Button';
-import Hidden from 'src/jscommon/controls/Hidden';
-import TextInput from 'src/jscommon/controls/TextInput';
-import { emptyPomodoro, PomodoroIdb } from '../data/PomodoroModels'
-
+import * as React from 'react'
+import Button from 'src/jscommon/controls/Button'
+import Hidden from 'src/jscommon/controls/Hidden'
+import TextInput from 'src/jscommon/controls/TextInput'
 import { PomodoroArc } from '../controls/PomodoroArc'
-import { PomodoroControls } from '../controls/PomodoroControls';
+import { PomodoroControls } from '../controls/PomodoroControls'
+import { emptyPomodoro, PomodoroIdb } from '../data/PomodoroModels'
+import * as container from './pomodoroManagement/PomodoroManagementContainer'
+import { connectContainer } from './pomodoroManagement/PomodoroManagementContainer'
 
 
 type ThisProps = 
@@ -34,16 +32,12 @@ type ComponentState = {} & {
 }
 
 class PomodoroManagementComp extends React.Component<ThisProps, ComponentState> {
-// const PomodoroManagementComp: React.SFC<ThisProps> = ( {pomodoros}:ThisProps ) => 
 constructor (props:ThisProps) {
   super (props)
   this.state = {
     pomodoro: emptyPomodoro,
     redirect: undefined
   }
-  // this.onActualChange = this.onActualChange.bind(this)
-  // this.onPlannedChange = this.onPlannedChange.bind(this)
-  // this.onClick = this.onClick.bind(this)
 
   this.onPlannedChanged = this.onPlannedChanged.bind(this)
   this.onActualChanged = this.onActualChanged.bind(this)
@@ -55,20 +49,7 @@ constructor (props:ThisProps) {
 }
 
   public render () {
-    const createActionButtons = (pomodoro:PomodoroIdb) => {
-      const onEdit = (event: React.SyntheticEvent<HTMLButtonElement>) => {
-        event.preventDefault()
-        this.setState({ ...this.state, pomodoro })    
-      }
-      const onDelete = (event: React.SyntheticEvent<HTMLButtonElement>) => {
-        event.preventDefault()
-        this.props.deleteItem!(pomodoro.id)
-      }
-      return <> 
-          <Button onClick={onEdit} text="Edit" />
-          <Button onClick={onDelete} text="Delete" /> 
-        </>
-    }
+    
   return (<div className="container-fluid" >
     <section className="hero is-primary">
       <div className="hero-body" style={SecondStyle}>
@@ -88,18 +69,56 @@ constructor (props:ThisProps) {
             <th>Actual</th>
             <th>Start</th>
             <th>Actions</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody>
 
-        {this.props.items.map((pomodoro:PomodoroIdb) =>
-          <tr key={pomodoro.id}>
+        {this.props.items.map((pomodoro:PomodoroIdb) => {
+
+          const onEdit = (event: React.SyntheticEvent<HTMLButtonElement>) => {
+            event.preventDefault()
+            this.setState({ ...this.state, pomodoro })    
+          }
+          const onDelete = (event: React.SyntheticEvent<HTMLButtonElement>) => {
+            event.preventDefault()
+            this.props.deleteItem!(pomodoro.id)
+          }
+          const onStart = (event: React.SyntheticEvent<HTMLButtonElement>) => {
+            event.preventDefault()
+            this.props.startPomodoro!(pomodoro)
+          }      
+          const onStop = (event: React.SyntheticEvent<HTMLButtonElement>) => {
+            event.preventDefault()
+            this.props.stopPomodoro!(pomodoro)
+          }      
+          const startButton = pomodoro.status === "Not started"
+            ? <Button onClick={onStart} text="Start" />
+            : <> </>
+          const stopButton = pomodoro.status === "Running"
+            ? <Button onClick={onStop} text="Stop" />
+            : <> </>
+
+          const actions = <> 
+              <Button onClick={onEdit} text="Edit" />
+              <Button onClick={onDelete} text="Delete" /> 
+              { startButton }
+              { stopButton }
+            </>
+
+          const startTime = 
+            pomodoro.startTime
+            ? (new Date(pomodoro.startTime)).toLocaleString()
+            : "NA"
+
+         return <tr key={pomodoro.id}>
             <td>{pomodoro.planned}</td>
             <td>{pomodoro.actual}</td>
-            <td>{(new Date(pomodoro.startTime)).toLocaleString()}</td>               
-            <td>{createActionButtons(pomodoro)}</td>
-          </tr>)}
-
+            <td>{startTime}</td>               
+            <td>{pomodoro.status}</td>
+            <td>{actions}</td>
+          </tr>})
+        }
         </tbody>
       </table>
     </section>
@@ -161,8 +180,6 @@ constructor (props:ThisProps) {
   }
 }
 
-// export default connect<{}, {}, container.AttributeProps>(container.mapStateToProps, container.mapDispatchToProps) (PomodoroManagementComp)
-
-
 // Export the react component
 export default connectContainer("Pomodoros", PomodoroManagementComp, s => s.pomodoros)
+

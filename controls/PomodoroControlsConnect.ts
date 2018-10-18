@@ -1,7 +1,7 @@
 import * as redux from 'redux';
 import * as state from 'src/core/reducers';
 import { PomodoroCommand, PomodoroCommands } from '../actions/PomodoroSaga';
-import { PomodoroTimerState } from '../data/PomodoroModels';
+import { PomodoroIdb, PomodoroTimerState } from '../data/PomodoroModels';
 
 export type AttributeProps = {} & {
     name: string
@@ -12,8 +12,8 @@ export type StateProps = {} & {
 }
   
 export type ConnectedDispatch = {} & {
-    start?: () => void
-    stop?: () => void
+    start?: (item:PomodoroIdb | void) => void
+    stop?: (item:PomodoroIdb | void) => void
     reset?: () => void
 }
 
@@ -23,6 +23,6 @@ export const mapStateToProps = (state1: state.All, ownProps: AttributeProps): St
 
 export const mapDispatchToProps = (dispatch: redux.Dispatch<PomodoroCommand>): ConnectedDispatch => ({
     reset: () => dispatch(PomodoroCommands.reset()),    
-    start: () => dispatch(PomodoroCommands.start()),
-    stop: () => dispatch(PomodoroCommands.stop()),
+    start: (item:PomodoroIdb | void) => dispatch(PomodoroCommands.start(item)),
+    stop: (item:PomodoroIdb | void) => dispatch(PomodoroCommands.stop(item)),
 })

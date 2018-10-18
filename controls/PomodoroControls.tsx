@@ -8,12 +8,12 @@ type CombinedProps = container.StateProps & container.ConnectedDispatch & contai
 const renderCounter:React.SFC<CombinedProps> = ({ pomodoroState, reset, start, stop }:CombinedProps) => {  
   const onClickStart = (e: React.SyntheticEvent<HTMLButtonElement>):void => {
     e.preventDefault()
-    start!()
+    start!(undefined)
   }
 
   const onClickStop = (e: React.SyntheticEvent<HTMLButtonElement>):void => {
     e.preventDefault()
-    stop!()
+    stop!(undefined)
   }    
 
   const onClickReset = (e: React.SyntheticEvent<HTMLButtonElement>):void => {

@@ -1,4 +1,3 @@
-// import { combineReducers } from 'redux'
 import { PomodoroEvent } from '../actions/PomodoroSaga';
 import { initialPomodoroTimerState, PomodoroTimerState } from '../data/PomodoroModels';
 
@@ -6,7 +5,7 @@ export function pomodoroReducers(state:PomodoroTimerState = initialPomodoroTimer
   switch(action.type) {
     case "POMODORO_TIMER_STARTED":
       return {
-        remaining: 25 * 60,               
+        remaining: 10,               
         timerId: action.timerId,
         type: "RUNNING"      
       } 
@@ -15,9 +14,8 @@ export function pomodoroReducers(state:PomodoroTimerState = initialPomodoroTimer
         type: "NOT_RUNNING"      
       } 
     case "POMODORO_TICKED":
-      const prev = state
-      if (prev.type === "RUNNING") {
-        return { ...prev, remaining: prev.remaining-1 }}      
+      if (state.type === "RUNNING") {
+        return { ...state, remaining: action.remaining }}      
       else { return state }
     default:
       return state
