@@ -5,7 +5,7 @@ export function pomodoroReducers(state:PomodoroTimerState = initialPomodoroTimer
   switch(action.type) {
     case "POMODORO_TIMER_STARTED":
       return {
-        remaining: 10,               
+        remaining: 25 * 60,               
         timerId: action.timerId,
         type: "RUNNING"      
       } 
