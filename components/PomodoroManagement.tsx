@@ -32,12 +32,12 @@ type ComponentState = {} & {
 }
 
 class PomodoroManagementComp extends React.Component<ThisProps, ComponentState> {
-constructor (props:ThisProps) {
-  super (props)
-  this.state = {
-    pomodoro: emptyPomodoro,
-    redirect: undefined
-  }
+  constructor (props:ThisProps) {
+    super (props)
+    this.state = {
+      pomodoro: emptyPomodoro,
+      redirect: undefined
+    }
 
   this.onPlannedChanged = this.onPlannedChanged.bind(this)
   this.onActualChanged = this.onActualChanged.bind(this)
