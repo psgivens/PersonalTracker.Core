@@ -1,21 +1,23 @@
 import { combineReducers } from 'redux';
 import { PomodoroTimerState } from 'src/core/data/PomodoroModels'
-import { createInitialState, crudlReducer, CrudlState } from 'src/jscommon/reducers/CrudlReducers';
-
 import { pomodoroReducers } from 'src/core/reducers/PomodoroReducers'
-
-export const initialState:All = { 
-  pomodoro: { type: "NOT_RUNNING" },
-  pomodoros: createInitialState()
-}
+import { createInitialState as createPomodoros, crudlReducer, CrudlState } from 'src/jscommon/reducers/CrudlReducers';
+import { createInitialState as createPingState, pingReducer, PingState } from 'src/jscommon/reducers/PingReducers'
 
 export type All = {} & {
-  pomodoros: CrudlState,
+  ping: PingState
+  pomodoros: CrudlState
   pomodoro: PomodoroTimerState
 }  
 
+export const initialState:All = { 
+  ping: createPingState(),
+  pomodoro: { type: "NOT_RUNNING" },
+  pomodoros: createPomodoros()
+}
 
 export const reducers = combineReducers( {
+  ping: pingReducer,
   pomodoro: pomodoroReducers,
   pomodoros: crudlReducer("Pomodoros")
 })
