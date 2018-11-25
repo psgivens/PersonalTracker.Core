@@ -1,5 +1,6 @@
 
 import * as React from 'react'
+import Authenticated from 'src/app/components/Authenticated';
 import Button from 'src/jscommon/controls/Button'
 import * as container from './valuesComponent/valuesComponentContainer'
 import { connectContainer } from './valuesComponent/valuesComponentContainer'
@@ -29,14 +30,15 @@ const ValuesComponent:React.SFC<ThisProps> = (props:ThisProps) => {
   }
 
   return (
+    <Authenticated>
   <div className="container-fluid" >
     <section className="hero is-primary">
       <div className="hero-body" style={SecondStyle}>
         <p className="title" style={SecondStyle}>
-          Pomodoro Management
+          Authenticated Values
         </p>
         <p className="subtitle">
-          List and edit <strong>Pomodoros</strong>
+          Demonstration of accessing values from authenticated endpoint
         </p>
       </div>
     </section>    
@@ -61,7 +63,8 @@ const ValuesComponent:React.SFC<ThisProps> = (props:ThisProps) => {
         <Button onClick={onGetValuesPressed} text="Get Values" />
       </div>
     </section>
-  </div>)
+  </div>
+  </Authenticated>)
   }
 
 // Export the react component

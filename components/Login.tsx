@@ -1,8 +1,9 @@
 
-import * as React from 'react';
+import * as React from 'react'
+import Unauthenticated from 'src/app/components/Unauthenticated'
 import * as container from 'src/jscommon/components/loginComponent/loginComponentContainer'
-import Button from 'src/jscommon/controls/Button';
-import TextInput from 'src/jscommon/controls/TextInput';
+import Button from 'src/jscommon/controls/Button'
+import TextInput from 'src/jscommon/controls/TextInput'
 
 type ThisProps = 
   container.StateProps
@@ -28,70 +29,65 @@ class LoginComponent extends React.Component<ThisProps, ComponentState> {
 
 
   public render () {
-  return (<div className="container-fluid" >
-    <section className="hero is-primary">
-      <div className="hero-body">
-        <p className="title">
-          Documentation
-        </p>
-        <p className="subtitle">
-          Everything you need to <strong>create a website</strong> with Bulma
-        </p>
-      </div>
-    </section>    
-    <section className="section">
-      <div className="container">
-      <TextInput
-          inputType="text"
-          label="Username"
-          name="username"
-          placeholder="Enter a value"
-          value={this.state.username}
-          onChange={this.onUsernameChanged} />
-        <TextInput
-          inputType="password"
-          label="Password"
-          name="password"
-          placeholder="Enter a value"
-          value={this.state.password}
-          onChange={this.onPasswordChanged} />
-        <Button onClick={this.onSubmitPressed} text="Login" />
-      </div>
-    </section>
-       
-    <section className="section">
-      <div className="container">
-      <table className="table">
-      <thead>
-        <tr>
-          <th>Key</th>
-          <th>Value</th>
-        </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>isAuthenticated</td>
-            <td>{ JSON.stringify(this.props.isAuthenticated) }</td>
-          </tr>
-          <tr>
-            <td>raw auth</td>
-            <td>{ this.props.token }</td>
-          </tr>
-          <tr>
-            <td>Header Claims</td>
-            <td>{ JSON.stringify(this.props.headerClaims) }</td>
-          </tr>
-          <tr>
-            <td>Payload Claims</td>
-            <td>{ JSON.stringify(this.props.payloadClaims) }</td>
-          </tr>
+  return (
+    <Unauthenticated>
+      <div className="container-fluid" >
+        <section className="section">
+          <div className="container box">
+          <TextInput
+              inputType="text"
+              label="Username"
+              name="username"
+              placeholder="Enter a value"
+              value={this.state.username}
+              size={30}
+              onChange={this.onUsernameChanged} />
+            <TextInput
+              inputType="password"
+              label="Password"
+              name="password"
+              placeholder="Enter a value"
+              value={this.state.password}
+              size={30}
+              onChange={this.onPasswordChanged} />
+            <Button onClick={this.onSubmitPressed} text="Login" />
+          </div>
+        </section>
+          
+        <section className="section">
+          <div className="container box">
+          <table className="table">
+          <thead>
+            <tr>
+              <th>Key</th>
+              <th>Value</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>isAuthenticated</td>
+                <td>{ JSON.stringify(this.props.isAuthenticated) }</td>
+              </tr>
+              <tr>
+                <td>raw auth</td>
+                <td><div className="textValue">{ this.props.token }</div></td>
+              </tr>
+              <tr>
+                <td>Header Claims</td>
+                <td><div className="textValue">{ JSON.stringify(this.props.headerClaims) }</div></td>
+              </tr>
+              <tr>
+                <td>Payload Claims</td>
+                <td><div className="textValue">{ JSON.stringify(this.props.payloadClaims) }</div></td>
+              </tr>
 
-        </tbody>
-      </table>
+            </tbody>
+          </table>
 
+          </div>
+        </section>
       </div>
-    </section>
-  </div>)
+    </Unauthenticated>)
   }
 
   private onUsernameChanged (event: React.SyntheticEvent<HTMLInputElement>) {
