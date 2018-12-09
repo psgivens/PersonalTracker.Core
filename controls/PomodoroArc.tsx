@@ -5,6 +5,7 @@ import { PomodoroTimerState } from '../data/PomodoroModels';
 import * as container from './PomodoroArcConnect';
 
 type ComponentState = {} & {
+  previousState: "NOT_RUNNING" | "RUNNING" | "BREAK"
 }
 
 type D3Config = {} & {
@@ -18,8 +19,8 @@ type D3Config = {} & {
 type ThisProps = container.StateProps & container.AttributeProps & container.ConnectedDispatch
 class PomodoroArcComponent extends React.Component<ThisProps, ComponentState> {
 
-  private node : SVGSVGElement
-  private seed:number
+  private node: SVGSVGElement
+  private seed: number
 
   private config: D3Config = {
     clipHeight: 200,
@@ -30,9 +31,12 @@ class PomodoroArcComponent extends React.Component<ThisProps, ComponentState> {
 
   constructor(props: ThisProps){
     super(props)
+    this.setState({previousState: props.timerState ? props.timerState!.type : "NOT_RUNNING"})
     this.createChart = this.createChart.bind(this)   
+    this.updateChart = this.updateChart.bind(this)
+    this.componentDidMount = this.componentDidMount.bind(this)
+    this.componentDidUpdate = this.componentDidUpdate.bind(this)
     this.config = this.config
-    this.state = { counter: 0 }
     this.seed = Math.floor(Math.random() * 1000)
   }
 
@@ -87,9 +91,7 @@ class PomodoroArcComponent extends React.Component<ThisProps, ComponentState> {
             .startAngle(0)
             .endAngle(2 * Math.PI);
         
-          g2.transition()
-            .duration(this.config.transitionMs)
-            .attr("d", arc2);
+          g2.attr("d", arc2);
         }
         break;
 
@@ -117,13 +119,17 @@ class PomodoroArcComponent extends React.Component<ThisProps, ComponentState> {
             .startAngle(0)
             .endAngle(value * 2 * Math.PI);
             
-          g2.transition()
-              .duration(this.config.transitionMs)
-              .attr("d", arc2);
+          if (newValue.remaining >= 25*60-1) {
+            g2.attr("d", arc2)
+          } else {
+            g2.transition()
+                .duration(this.config.transitionMs)
+                .attr("d", arc2);
+          }
+
         }
         break;
     }
-
 
     return 1
   }
