@@ -31,7 +31,7 @@ class PomodoroArcComponent extends React.Component<ThisProps, ComponentState> {
 
   constructor(props: ThisProps){
     super(props)
-    this.setState({previousState: props.timerState ? props.timerState!.type : "NOT_RUNNING"})
+    this.state = {previousState: props.timerState ? props.timerState!.type : "NOT_RUNNING"}
     this.createChart = this.createChart.bind(this)   
     this.updateChart = this.updateChart.bind(this)
     this.componentDidMount = this.componentDidMount.bind(this)
