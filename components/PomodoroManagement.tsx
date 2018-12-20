@@ -73,8 +73,8 @@ class PomodoroManagementComp extends React.Component<ThisProps, ComponentState> 
           <div className="blide-title" style={SecondStyle}>
             My Section
           </div>
-          <div className="blade-body" >
-            <div className="">
+          <div className="blade-body pomodoros" >
+            <div className="pomodoro-items">
               {pomodoroInfoPanels}
             </div>
           </div>
