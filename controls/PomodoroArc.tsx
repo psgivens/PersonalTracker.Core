@@ -53,7 +53,7 @@ class PomodoroArcComponent extends React.Component<ThisProps, ComponentState> {
   }
 
   public render() {                                                        
-    return <div>
+    return <div className="pomodoro-arc">
       <svg ref={node => this.node = node!} width={200} height={200} />
       </div>
   }
@@ -74,7 +74,7 @@ class PomodoroArcComponent extends React.Component<ThisProps, ComponentState> {
       .endAngle(0.5 * Math.PI);
   
     g.append("path")
-      .attr("class", "arc")
+      .attr("class", "pomodoro-arc")
       .attr("id", "pomodoro-arc-" + guageId + '' + this.seed)
       .attr("d", arc1);                  
   }

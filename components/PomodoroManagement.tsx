@@ -11,19 +11,10 @@ import PomodoroInfoPanels from './pomodoroManagement/PomodoroInfoPanels';
 import * as container from './pomodoroManagement/PomodoroManagementContainer'
 import { connectContainer } from './pomodoroManagement/PomodoroManagementContainer'
 
-
 type ThisProps = 
   container.StateProps<PomodoroIdb> 
   & container.ConnectedDispatch<PomodoroIdb>
   & container.AttributeProps
-
-
-/*************** TODO Remove *******************/
-const SecondStyle = {
-  backgroundColor: "#f6511dff"
-}
-
-/*************** end Remove *******************/
 
 // TODO: Add error-boundaries
 // https://reactjs.org/docs/error-boundaries.html
@@ -56,7 +47,6 @@ class PomodoroManagementComp extends React.Component<ThisProps, ComponentState> 
 }
 
   public render () {
-    
     const pomodoroInfoPanels = (
      <PomodoroInfoPanels 
         pomodoros={this.props.items}
@@ -64,14 +54,13 @@ class PomodoroManagementComp extends React.Component<ThisProps, ComponentState> 
         onStop={this.onStop}
         onDelete={this.onDelete}
         onEdit={this.onEdit}
-      />
-        )
+      />)
     
   return (
     <Authenticated>
         <section className="blade listings is-primary">
-          <div className="blide-title" style={SecondStyle}>
-            My Section
+          <div className="blade-title" >
+            Pomodoros
           </div>
           <div className="blade-body pomodoros" >
             <div className="pomodoro-items">
