@@ -1,10 +1,13 @@
-import { select, takeEvery } from 'redux-saga/effects'
 import { 
-    // call,
-     put } from 'redux-saga/effects'
-import * as reducers from 'src/core/reducers'
+    // select, 
+    takeEvery } from 'redux-saga/effects'
+    import { 
+        call,
+        put } from 'redux-saga/effects'
+        // import * as reducers from 'src/core/reducers'
+import { pomodorosApi } from '../apis/pomodorosApi';
 import { GroupIdb, PersonIdb } from '../data/PeopleModels';
-// import { valuesApi } from '../apis/valuesApi'
+
 
 export type PeopleCommand = {
     type: "PEOPLE_GET_PEOPLE"
@@ -44,15 +47,15 @@ export class PeopleSaga {
 
     public *getPeople(action: PeopleCommand){
 
-        const getAuthnToken = (state:reducers.All): string => state.auth ? state.auth.token : ""
-        const token:string = yield select(getAuthnToken)
-        // const values = yield call(valuesApi.getValues, token)
+        // const getAuthnToken = (state:reducers.All): string => state.auth ? state.auth.token : ""
+        // const token:string = yield select(getAuthnToken)
+        const people = yield call(pomodorosApi.getPeople)
 
-        // // tslint:disable-next-line:no-console
-        // console.log(values)
+        // tslint:disable-next-line:no-console
+        console.log(people)
 
         yield put( { 
-            people: [],
+            people,
             type: "PEOPLE_SUCCESS_PEOPLE",
         } as PeopleEvent)
     }
@@ -60,8 +63,8 @@ export class PeopleSaga {
 
     public *getGroups(action: PeopleCommand){
 
-        const getAuthnToken = (state:reducers.All): string => state.auth ? state.auth.token : ""
-        const token:string = yield select(getAuthnToken)
+        // const getAuthnToken = (state:reducers.All): string => state.auth ? state.auth.token : ""
+        // const token:string = yield select(getAuthnToken)
         // const values = yield call(valuesApi.getValues, token)
 
         // // tslint:disable-next-line:no-console
