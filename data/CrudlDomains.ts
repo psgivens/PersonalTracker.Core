@@ -3,7 +3,8 @@ export type CrudlTableName =
     "PomodoroManagement"
 
 export type CrudlDomainValues = 
-    "Pomodoros"
+    "Pomodoros" 
+    | "People"
 
 // These are not real examples. They demonstrate how to extend the message 
 // passing to handle any type of event you can dream up. These commands 

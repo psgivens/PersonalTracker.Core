@@ -2,16 +2,16 @@ import { combineReducers } from 'redux';
 import { PomodoroTimerState } from 'src/core/data/PomodoroModels'
 import { pomodoroReducers } from 'src/core/reducers/PomodoroReducers'
 import { authenticationReducer, AuthenticationState, createInitialState as createAuthState } from 'src/jscommon/reducers/AuthenticationReducers'
-import { createInitialState as createPomodoros, crudlReducer, CrudlState } from 'src/jscommon/reducers/CrudlReducers';
+import { createInitialState as createCrudlItems, crudlReducer, CrudlState } from 'src/jscommon/reducers/CrudlReducers';
 import { createInitialState as createPingState, pingReducer, PingState } from 'src/jscommon/reducers/PingReducers'
-import { GroupIdb, PersonIdb } from '../data/PeopleModels';
-import { groupsReducers, peopleReducers } from './peopleReducers';
+import { GroupIdb } from '../data/PeopleModels';
+import { groupsReducers } from './peopleReducers';
 import { valuesReducers } from './valuesReducers';
 
 export type All = {} & {
   auth: AuthenticationState
   groups: GroupIdb []
-  people: PersonIdb []
+  people: CrudlState
   ping: PingState  
   pomodoros: CrudlState
   pomodoro: PomodoroTimerState
@@ -21,17 +21,17 @@ export type All = {} & {
 export const initialState:All = { 
   auth: createAuthState(),
   groups: [],
-  people: [],
+  people: createCrudlItems(),
   ping: createPingState(),
   pomodoro: { type: "NOT_RUNNING" },
-  pomodoros: createPomodoros(),
+  pomodoros: createCrudlItems(),
   values: []
 }
 
 export const reducers = combineReducers( {
   auth: authenticationReducer,
   groups: groupsReducers,
-  people: peopleReducers,
+  people: crudlReducer("People"),
   ping: pingReducer,
   pomodoro: pomodoroReducers,
   pomodoros: crudlReducer("Pomodoros"),

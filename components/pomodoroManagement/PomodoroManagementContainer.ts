@@ -8,6 +8,10 @@ import { createCrudlDomainSagaCommands, CrudlSagaCommand } from 'src/jscommon/ac
 import { CrudlEntity } from 'src/jscommon/data/CrudlDomainCommands';
 import { CrudlState } from 'src/jscommon/reducers/CrudlReducers';
 
+/***************************************************************************
+ * Copy, pasted, and modified from jscommons/components/CrudlContainer.tsx
+ ***************************************************************************/
+
 export type AttributeProps = {} & {
     name: string
 }
