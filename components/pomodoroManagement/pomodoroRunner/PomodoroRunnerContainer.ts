@@ -13,21 +13,17 @@ import { CrudlState } from 'src/jscommon/reducers/CrudlReducers';
  ***************************************************************************/
 
 export type AttributeProps = {} & {
-    name: string
 }
   
 export type StateProps<T extends CrudlEntity> = {} & {
     item: PomodoroIdb | void,
-    items: PomodoroIdb []
+    redirect: string | void
 }
   
 export type ConnectedDispatch<T extends CrudlEntity> = {} & {
-    selectItem?: (item: T) => void
     addItem?: (item: T) => void
     startPomodoro?: (item:PomodoroIdb) => void
     stopPomodoro?: (item:PomodoroIdb) => void
-    deleteItem?: (id: number) => void
-    loadItems?: () => void
 }
 
 export type SelectSubState = (s:state.All)=>CrudlState
@@ -37,16 +33,13 @@ export const connectContainer = <T extends CrudlEntity, U>(domain:CrudlDomainVal
         const ios = select(state1)        
         return {
             item: ios.selectedItem as PomodoroIdb,
-            items: ios.items as PomodoroIdb[]
+            redirect: undefined
         } }
     
     const mapDispatchToProps = (dispatch: redux.Dispatch<CrudlSagaCommand | PomodoroCommand>): ConnectedDispatch<T> => {
         const commands = createCrudlDomainSagaCommands(domain)
         return {
             addItem: (item:T) => dispatch(commands.addItem(item)),
-            deleteItem: (id: number) => dispatch(commands.deleteItem(id)),
-            loadItems: () => dispatch(commands.loadItems()),
-            selectItem: (item:T) => dispatch(commands.selectItem(item)),
             startPomodoro: (item:PomodoroIdb) => dispatch(PomodoroCommands.start(item)),
             stopPomodoro: (item:PomodoroIdb) => dispatch(PomodoroCommands.stop(item))
         }

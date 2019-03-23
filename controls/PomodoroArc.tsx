@@ -53,8 +53,12 @@ class PomodoroArcComponent extends React.Component<ThisProps, ComponentState> {
   }
 
   public render() {                                                        
+    const pomodoroState = this.props.timerState!
     return <div className="pomodoro-arc">
       <svg ref={node => this.node = node!} width={200} height={200} />
+      <pre>
+        Pomodoro = {JSON.stringify(pomodoroState)}
+      </pre>
       </div>
   }
 
@@ -116,8 +120,8 @@ class PomodoroArcComponent extends React.Component<ThisProps, ComponentState> {
           const arc2 = d3.arc()
             .innerRadius(50)
             .outerRadius(70)
-            .startAngle(0)
-            .endAngle(value * 2 * Math.PI);
+            .startAngle(2 * Math.PI - value * 2 * Math.PI)
+            .endAngle(2 * Math.PI);
             
           if (newValue.remaining >= 25*60-1) {
             g2.attr("d", arc2)

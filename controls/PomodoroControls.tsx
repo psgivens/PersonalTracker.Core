@@ -25,9 +25,6 @@ const renderCounter:React.SFC<CombinedProps> = ({ pomodoroState, reset, start, s
     <Button onClick={onClickStart} text="Start" />
     <Button onClick={onClickStop} text="Stop" />
     <Button onClick={onClickReset} text="Reset" />
-    <pre>
-      Pomodoro = {JSON.stringify(pomodoroState)}
-    </pre>
   </div>
 }
   
