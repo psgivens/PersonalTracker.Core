@@ -9,7 +9,11 @@ const WebappPingComponent:React.SFC<ThisProps> = (props:ThisProps) => {
 
   return (
     <Authenticated>
-        <Route component={PingComponent} />
+      <section className="blade full" >
+        <div className="blade-body" >
+          <Route component={PingComponent} />
+        </div>
+      </section>
     </Authenticated>)
 }
 

@@ -31,6 +31,9 @@ const ValuesComponent:React.SFC<ThisProps> = (props:ThisProps) => {
 
   return (
     <Authenticated>
+            <section className="blade full" >
+        <div className="blade-body" >
+
   <div className="container-fluid" >
     <section className="hero is-primary">
       <div className="hero-body" style={SecondStyle}>
@@ -64,6 +67,7 @@ const ValuesComponent:React.SFC<ThisProps> = (props:ThisProps) => {
       </div>
     </section>
   </div>
+  </div></section>
   </Authenticated>)
   }
 
