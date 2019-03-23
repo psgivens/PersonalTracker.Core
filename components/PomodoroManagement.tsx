@@ -2,11 +2,11 @@
 import * as React from 'react'
 import Authenticated from 'src/app/components/Authenticated';
 import { PomodoroIdb } from '../data/PomodoroModels'
-import PomodoroInfoPanels from './pomodoroManagement/PomodoroInfoPanels';
+import PomodoroEditor from './pomodoroManagement/PomodoroEditor'
+import PomodoroInfoPanels from './pomodoroManagement/PomodoroInfoPanels'
 import * as container from './pomodoroManagement/PomodoroManagementContainer'
 import { connectContainer } from './pomodoroManagement/PomodoroManagementContainer'
-// import PomodoroRunnerComp from './pomodoroManagement/PomodoroRunner'
-import PomodoroRunner from './pomodoroManagement/PomodoroRunner';
+import PomodoroRunner from './pomodoroManagement/PomodoroRunner'
 
 
 type ThisProps = 
@@ -58,10 +58,9 @@ class PomodoroManagementComp extends React.Component<ThisProps, ComponentState> 
             </div>
           </div>
         </section>
-        <section className="blade details" >
-          <PomodoroRunner
-          key={this.props.item ? this.props.item.id : 0}
-           />
+        <section className="blade details" key={this.props.item ? this.props.item.id : 0} >
+          <PomodoroRunner />
+          <PomodoroEditor />          
         </section>
     </Authenticated>)
   }
