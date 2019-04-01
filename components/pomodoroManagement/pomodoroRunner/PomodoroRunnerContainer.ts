@@ -47,7 +47,7 @@ export const connectContainer = <T extends CrudlEntity, U>(domain:CrudlDomainVal
 
     return connect<{}, {}, AttributeProps>( 
         (s: state.All,o:AttributeProps) => mapStateToProps(s,o), 
-        (dispatch: redux.Dispatch<CrudlSagaCommand>) => mapDispatchToProps(dispatch)) 
+        (dispatch: redux.Dispatch<CrudlSagaCommand | PomodoroCommand>) => mapDispatchToProps(dispatch)) 
         (component)
 } 
 

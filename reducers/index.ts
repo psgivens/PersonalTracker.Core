@@ -18,15 +18,15 @@ export type All = {} & {
   values: string[]  
 }  
 
-export const initialState:All = { 
-  auth: createAuthState(),
+export const initialState = (accessToken:string):All => ( { 
+  auth: createAuthState(accessToken),
   groups: [],
   people: createCrudlItems(),
   ping: createPingState(),
   pomodoro: { type: "NOT_RUNNING" },
   pomodoros: createCrudlItems(),
   values: []
-}
+})
 
 export const reducers = combineReducers( {
   auth: authenticationReducer,
